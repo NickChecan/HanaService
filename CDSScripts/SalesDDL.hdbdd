@@ -1,0 +1,47 @@
+namespace HanaService.CDSScripts;
+
+@Schema: 'SALES_TUTORIAL'
+context SalesDDL {
+	
+	@Catalog.tableType: #COLUMN
+    entity Region {
+    	key REGION_ID       : Integer;
+    		REGION_NAME	    : String(100);
+    		SUB_REGION_NAME : String(100);
+    		SALES		    : Association[*] to Sales on SALES.REGION_ID = REGION_ID;
+    };
+	
+	@Catalog.tableType: #COLUMN 
+    entity Product {
+    	key PRODUCT_ID   : Integer;
+    		PRODUCT_NAME : String(100);
+    		SALES	     : Association[*] to Sales on SALES.PRODUCT_ID = PRODUCT_ID;
+    };
+    
+    @Catalog.tableType: #COLUMN
+    entity Sales {
+    	key REGION_ID    : Integer;
+    	key PRODUCT_ID   : Integer;
+    		SALES_AMOUNT : Decimal(10,2);
+    		REGION       : Association[1] to Region on REGION.REGION_ID = REGION_ID;
+    		PRODUCT      : Association[1] to Product on PRODUCT.PRODUCT_ID = PRODUCT_ID;
+    };
+    
+    define view RegionView as select from Region {
+    	REGION_ID   as "regionId",
+    	REGION_NAME as "regionname"
+    };
+    
+    define view ProductView as select from Product {
+    	PRODUCT_ID   as "productId",
+    	PRODUCT_NAME as "productName"
+    };
+    
+    define view SalesView as select from Sales {
+    	REGION_ID    as "regionId",
+    	PRODUCT_ID   as "productId",
+    	SALES_AMOUNT as "salesAmount"
+    };
+    
+
+};
