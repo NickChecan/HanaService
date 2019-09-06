@@ -1,0 +1,27 @@
+{
+	"exposed" : true,  
+                  
+    "authentication" : {
+    	"method": "Form"   
+    },
+  
+    "cache_control" : "must-revalidate", 
+
+    "cors" : {
+		"enabled" : true,
+       	"allowMethods": [
+        	"GET",
+            "POST",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "allowOrigin": "*",
+        "maxAge": "3600"
+     }, 
+                     
+     "enable_etags" : false,
+
+     "force_ssl" : false,
+     
+     "prevent_xsrf" : false
+}

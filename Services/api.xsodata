@@ -1,0 +1,12 @@
+service {
+	
+	"SALES_TUTORIAL"."HanaService.CDSScripts::SalesDDL.Product" as "Product";
+    
+    "SALES_TUTORIAL"."HanaService.CDSScripts::SalesDDL.Region" as "Region"
+	create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "SALES_TUTORIAL"."HanaService.CDSScripts::SalesDDL.Sales" as "Sales";
+    
+}
