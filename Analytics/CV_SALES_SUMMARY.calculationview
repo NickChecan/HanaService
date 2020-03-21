@@ -33,14 +33,39 @@
         <mapping xsi:type="Calculation:AttributeMapping" target="SALES_AMOUNT" source="SALES_AMOUNT"/>
       </input>
     </calculationView>
-    <calculationView xsi:type="Calculation:JoinView" id="SalesRegion" joinOrder="OUTSIDE_IN" joinType="inner">
+    <calculationView xsi:type="Calculation:ProjectionView" id="Region">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="REGION_ID"/>
+        <viewAttribute id="REGION_NAME"/>
+        <viewAttribute id="SUB_REGION_NAME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SalesDDL.Region">
+        <mapping xsi:type="Calculation:AttributeMapping" target="REGION_ID" source="REGION_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REGION_NAME" source="REGION_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUB_REGION_NAME" source="SUB_REGION_NAME"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Product">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT_ID"/>
+        <viewAttribute id="PRODUCT_NAME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SalesDDL.Product">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_NAME" source="PRODUCT_NAME"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="SalesProduct" joinOrder="OUTSIDE_IN" joinType="referential">
       <descriptions/>
       <viewAttributes>
         <viewAttribute id="REGION_ID"/>
         <viewAttribute id="PRODUCT_ID"/>
         <viewAttribute id="SALES_AMOUNT"/>
-        <viewAttribute id="REGION_NAME"/>
-        <viewAttribute id="SUB_REGION_NAME"/>
+        <viewAttribute id="PRODUCT_NAME"/>
       </viewAttributes>
       <calculatedViewAttributes/>
       <input node="#Sales">
@@ -48,60 +73,59 @@
         <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="SALES_AMOUNT" source="SALES_AMOUNT"/>
       </input>
-      <input node="#SalesDDL.Region">
+      <input node="#Product">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_NAME" source="PRODUCT_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REGION_ID" source="PRODUCT_ID"/>
+      </input>
+      <joinAttribute name="REGION_ID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="SalesRegion" joinOrder="OUTSIDE_IN" joinType="referential">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="REGION_ID"/>
+        <viewAttribute id="PRODUCT_ID"/>
+        <viewAttribute id="SALES_AMOUNT"/>
+        <viewAttribute id="PRODUCT_NAME"/>
+        <viewAttribute id="REGION_NAME"/>
+        <viewAttribute id="SUB_REGION_NAME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SalesProduct">
+        <mapping xsi:type="Calculation:AttributeMapping" target="REGION_ID" source="REGION_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SALES_AMOUNT" source="SALES_AMOUNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_NAME" source="PRODUCT_NAME"/>
+      </input>
+      <input node="#Region">
         <mapping xsi:type="Calculation:AttributeMapping" target="REGION_NAME" source="REGION_NAME"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="SUB_REGION_NAME" source="SUB_REGION_NAME"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="REGION_ID" source="REGION_ID"/>
       </input>
       <joinAttribute name="REGION_ID"/>
     </calculationView>
-    <calculationView xsi:type="Calculation:JoinView" id="SalesProduct" joinOrder="OUTSIDE_IN" joinType="inner">
-      <descriptions/>
-      <viewAttributes>
-        <viewAttribute id="REGION_ID"/>
-        <viewAttribute id="PRODUCT_ID"/>
-        <viewAttribute id="SALES_AMOUNT"/>
-        <viewAttribute id="REGION_NAME"/>
-        <viewAttribute id="SUB_REGION_NAME"/>
-        <viewAttribute id="PRODUCT_NAME"/>
-      </viewAttributes>
-      <calculatedViewAttributes/>
-      <input node="#SalesRegion">
-        <mapping xsi:type="Calculation:AttributeMapping" target="REGION_ID" source="REGION_ID"/>
-        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
-        <mapping xsi:type="Calculation:AttributeMapping" target="SALES_AMOUNT" source="SALES_AMOUNT"/>
-        <mapping xsi:type="Calculation:AttributeMapping" target="REGION_NAME" source="REGION_NAME"/>
-        <mapping xsi:type="Calculation:AttributeMapping" target="SUB_REGION_NAME" source="SUB_REGION_NAME"/>
-      </input>
-      <input node="#SalesDDL.Product">
-        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_NAME" source="PRODUCT_NAME"/>
-        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
-      </input>
-      <joinAttribute name="PRODUCT_ID"/>
-    </calculationView>
   </calculationViews>
-  <logicalModel id="SalesProduct">
+  <logicalModel id="SalesRegion">
     <descriptions/>
     <attributes>
-      <attribute id="REGION_ID" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
-        <descriptions defaultDescription="Region Code"/>
-        <keyMapping columnObjectName="SalesProduct" columnName="REGION_ID"/>
+      <attribute id="REGION_ID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="REGION_ID"/>
+        <keyMapping columnObjectName="SalesRegion" columnName="REGION_ID"/>
       </attribute>
-      <attribute id="REGION_NAME" order="2" attributeHierarchyActive="false" displayAttribute="false">
-        <descriptions defaultDescription="Region Name"/>
-        <keyMapping columnObjectName="SalesProduct" columnName="REGION_NAME"/>
+      <attribute id="PRODUCT_ID" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT_ID"/>
+        <keyMapping columnObjectName="SalesRegion" columnName="PRODUCT_ID"/>
       </attribute>
-      <attribute id="SUB_REGION_NAME" order="3" attributeHierarchyActive="false" displayAttribute="false">
-        <descriptions defaultDescription="Sub Region Name"/>
-        <keyMapping columnObjectName="SalesProduct" columnName="SUB_REGION_NAME"/>
+      <attribute id="PRODUCT_NAME" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT_NAME"/>
+        <keyMapping columnObjectName="SalesRegion" columnName="PRODUCT_NAME"/>
       </attribute>
-      <attribute id="PRODUCT_ID" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
-        <descriptions defaultDescription="Product Code"/>
-        <keyMapping columnObjectName="SalesProduct" columnName="PRODUCT_ID"/>
+      <attribute id="REGION_NAME" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="REGION_NAME"/>
+        <keyMapping columnObjectName="SalesRegion" columnName="REGION_NAME"/>
       </attribute>
-      <attribute id="PRODUCT_NAME" order="5" attributeHierarchyActive="false" displayAttribute="false">
-        <descriptions defaultDescription="Product Name"/>
-        <keyMapping columnObjectName="SalesProduct" columnName="PRODUCT_NAME"/>
+      <attribute id="SUB_REGION_NAME" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SUB_REGION_NAME"/>
+        <keyMapping columnObjectName="SalesRegion" columnName="SUB_REGION_NAME"/>
       </attribute>
     </attributes>
     <calculatedAttributes/>
@@ -113,9 +137,9 @@
       </layout>
     </privateDataFoundation>
     <baseMeasures>
-      <measure id="SALES_AMOUNT" order="6" aggregationType="sum" measureType="simple">
-        <descriptions defaultDescription="Sales Amount"/>
-        <measureMapping columnObjectName="SalesProduct" columnName="SALES_AMOUNT"/>
+      <measure id="SALES_AMOUNT" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="SALES_AMOUNT"/>
+        <measureMapping columnObjectName="SalesRegion" columnName="SALES_AMOUNT"/>
       </measure>
     </baseMeasures>
     <calculatedMeasures/>
@@ -125,19 +149,27 @@
   <layout>
     <shapes>
       <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-        <upperLeftCorner x="160" y="90"/>
+        <upperLeftCorner x="180" y="130"/>
         <rectangleSize height="66" width="140"/>
       </shape>
       <shape expanded="true" modelObjectName="Sales" modelObjectNameSpace="CalculationView">
-        <upperLeftCorner x="160" y="370"/>
+        <upperLeftCorner x="21" y="437"/>
         <rectangleSize height="-1" width="-1"/>
       </shape>
-      <shape expanded="true" modelObjectName="SalesRegion" modelObjectNameSpace="CalculationView">
-        <upperLeftCorner x="160" y="270"/>
+      <shape expanded="true" modelObjectName="Region" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="260" y="320"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Product" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="180" y="437"/>
         <rectangleSize height="-1" width="-1"/>
       </shape>
       <shape expanded="true" modelObjectName="SalesProduct" modelObjectNameSpace="CalculationView">
-        <upperLeftCorner x="160" y="170"/>
+        <upperLeftCorner x="101" y="320"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="SalesRegion" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="180" y="210"/>
         <rectangleSize height="-1" width="-1"/>
       </shape>
     </shapes>
