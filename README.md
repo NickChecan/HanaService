@@ -18,6 +18,8 @@ This project consist in the creation of three tables, three common views, one da
 
 ```
 HanaService
+	├── Analytics
+	│    └── CV_SALES_SUMMARY.calculationview
 	├── CDSScripts
 	│    ├── SALES_TUTORIAL.hdbschema
 	│    ├── SalesDDL.hdbdd
@@ -25,6 +27,14 @@ HanaService
 	├── SQLScripts
 	│    ├── SalesDDL.sql
 	│    └── SalesDML.sql
+	├── Services
+	│    └── api.xsodata
+	├── xsjs
+	│    ├── delete.xsjs
+	│    ├── example.xsjs
+	│    ├── insert.xsjs
+	│    ├── read.xsjs
+	│    └── update.xsjs
 	├── SalesData.calculationview
 	└── README.md
 ```
