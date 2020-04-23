@@ -7,7 +7,8 @@ The purpose of this project is to implement a simple SAP Hana solution with some
 > **Note:**
 > 
 > - A SAP Cloud Platform account will be required in order to maintain a Hana Trial instance for your project.
-> - This project implementation was made to be the first step for the [HanaToPython](https://github.com/NickChecan/HanaToPython-Application) and/or [HanaToJava](https://github.com/NickChecan/HanaToJava-Application) project deployment.
+> - This project was meant to run on a HANA MDC instance from the Neo environment of the SAP Cloud Platform trial.
+> - The implementation of this application was made to be the first step for the [HanaToPython](https://github.com/NickChecan/HanaToPython-Application) and/or [HanaToJava](https://github.com/NickChecan/HanaToJava-Application) project deployment.
 
 ----------
 
